@@ -4,6 +4,7 @@ import eventdriven.kafka.orderservice.model.Order;
 import eventdriven.kafka.orderservice.model.OrderItem;
 import eventdriven.kafka.orderservice.dto.CreateOrderRequest;
 import eventdriven.kafka.orderservice.dto.OrderItemDto;
+import eventdriven.kafka.orderservice.kafka.OrderEventProducer;
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -12,7 +13,12 @@ import java.util.stream.Collectors;
 @Service
 public class OrderService {
     private final Map<String, Order> orders = new HashMap<>();
+    private final OrderEventProducer orderEventProducer;
     private long orderCounter = 1;
+
+    public OrderService(OrderEventProducer orderEventProducer) {
+        this.orderEventProducer = orderEventProducer;
+    }
 
     public Order createOrder(CreateOrderRequest request) {
         String orderId = "ORD-" + orderCounter++;
@@ -41,6 +47,9 @@ public class OrderService {
                 LocalDateTime.now());
 
         orders.put(orderId, order);
+
+        // Publish to Kafka so downstream services can react asynchronously.
+        orderEventProducer.publishOrderCreated(order);
         return order;
     }
 
@@ -57,6 +66,7 @@ public class OrderService {
         if (order != null) {
             order.setStatus(status);
             order.setUpdatedAt(LocalDateTime.now());
+            orderEventProducer.publishOrderStatusUpdated(order);
         }
         return order;
     }

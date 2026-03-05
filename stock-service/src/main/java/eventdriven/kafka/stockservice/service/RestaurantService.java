@@ -2,12 +2,14 @@ package eventdriven.kafka.stockservice.service;
 
 import eventdriven.kafka.stockservice.model.Restaurant;
 import eventdriven.kafka.stockservice.model.Dish;
+import eventdriven.kafka.stockservice.kafka.OrderEventMessage;
 import org.springframework.stereotype.Service;
 import java.util.*;
 
 @Service
 public class RestaurantService {
     private final Map<Long, Restaurant> restaurants = new HashMap<>();
+    private final Map<String, String> orderStates = new LinkedHashMap<>();
     private long restaurantCounter = 1;
     private long dishCounter = 1;
 
@@ -125,5 +127,17 @@ public class RestaurantService {
             return restaurant.getDishes().removeIf(dish -> dish.getId().equals(dishId));
         }
         return false;
+    }
+
+    public void processOrderCreatedEvent(OrderEventMessage message) {
+        orderStates.put(message.getOrderId(), "PENDING");
+    }
+
+    public void processOrderStatusUpdatedEvent(OrderEventMessage message) {
+        orderStates.put(message.getOrderId(), message.getStatus());
+    }
+
+    public Map<String, String> getOrderStates() {
+        return Collections.unmodifiableMap(orderStates);
     }
 }
