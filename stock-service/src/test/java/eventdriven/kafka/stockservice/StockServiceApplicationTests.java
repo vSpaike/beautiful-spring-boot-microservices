@@ -11,7 +11,10 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@SpringBootTest
+@SpringBootTest(properties = {
+		"spring.kafka.consumer.bootstrap-servers=localhost:9092",
+		"spring.kafka.listener.auto-startup=false"
+})
 class StockServiceApplicationTests {
 
 	@Autowired

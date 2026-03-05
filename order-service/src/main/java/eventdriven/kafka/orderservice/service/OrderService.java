@@ -4,7 +4,11 @@ import eventdriven.kafka.orderservice.model.Order;
 import eventdriven.kafka.orderservice.model.OrderItem;
 import eventdriven.kafka.orderservice.dto.CreateOrderRequest;
 import eventdriven.kafka.orderservice.dto.OrderItemDto;
+<<<<<<< HEAD
 import eventdriven.kafka.orderservice.kafka.OrderEventProducer;
+=======
+import eventdriven.kafka.orderservice.kafka.OrderProducer;
+>>>>>>> 21fbead (ça marche encore plus)
 import org.springframework.stereotype.Service;
 import java.time.LocalDateTime;
 import java.util.*;
@@ -16,8 +20,15 @@ public class OrderService {
     private final OrderEventProducer orderEventProducer;
     private long orderCounter = 1;
 
+<<<<<<< HEAD
     public OrderService(OrderEventProducer orderEventProducer) {
         this.orderEventProducer = orderEventProducer;
+=======
+    private final eventdriven.kafka.orderservice.kafka.OrderProducer orderProducer;
+
+    public OrderService(eventdriven.kafka.orderservice.kafka.OrderProducer orderProducer) {
+        this.orderProducer = orderProducer;
+>>>>>>> 21fbead (ça marche encore plus)
     }
 
     public Order createOrder(CreateOrderRequest request) {
@@ -48,8 +59,24 @@ public class OrderService {
 
         orders.put(orderId, order);
 
+<<<<<<< HEAD
         // Publish to Kafka so downstream services can react asynchronously.
         orderEventProducer.publishOrderCreated(order);
+=======
+        eventdriven.kafka.basedomains.dto.Order eventOrder = new eventdriven.kafka.basedomains.dto.Order(
+                orderId,
+                "Customer-" + request.getCustomerId(),
+                request.getItems().stream().mapToInt(item -> item.getQuantity()).sum(),
+                totalPrice);
+
+        eventdriven.kafka.basedomains.dto.OrderEvent event = new eventdriven.kafka.basedomains.dto.OrderEvent(
+                "Order status is in pending state",
+                "PENDING",
+                eventOrder);
+
+        orderProducer.sendMessage(event);
+
+>>>>>>> 21fbead (ça marche encore plus)
         return order;
     }
 
@@ -57,11 +84,11 @@ public class OrderService {
         return orders.get(orderId);
     }
 
-    public List<Order> getAllOrders() {
+    public List<eventdriven.kafka.orderservice.model.Order> getAllOrders() {
         return new ArrayList<>(orders.values());
     }
 
-    public Order updateOrderStatus(String orderId, String status) {
+    public eventdriven.kafka.orderservice.model.Order updateOrderStatus(String orderId, String status) {
         Order order = orders.get(orderId);
         if (order != null) {
             order.setStatus(status);
@@ -75,13 +102,13 @@ public class OrderService {
         return orders.remove(orderId) != null;
     }
 
-    public List<Order> getOrdersByCustomerId(String customerId) {
+    public List<eventdriven.kafka.orderservice.model.Order> getOrdersByCustomerId(String customerId) {
         return orders.values().stream()
                 .filter(order -> order.getCustomerId().equals(customerId))
                 .collect(Collectors.toList());
     }
 
-    public List<Order> getOrdersByRestaurantId(Long restaurantId) {
+    public List<eventdriven.kafka.orderservice.model.Order> getOrdersByRestaurantId(Long restaurantId) {
         return orders.values().stream()
                 .filter(order -> order.getRestaurantId().equals(restaurantId))
                 .collect(Collectors.toList());
