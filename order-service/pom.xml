@@ -38,11 +38,6 @@
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.kafka</groupId>
-<<<<<<< HEAD
-			<artifactId>spring-kafka-test</artifactId>
-			<scope>test</scope>
-		</dependency>
-=======
 			<artifactId>spring-kafka</artifactId>
 		</dependency>
 		<dependency>
@@ -55,7 +50,6 @@
 			<artifactId>base-domains</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
->>>>>>> 21fbead (ça marche encore plus)
 	</dependencies>
 
 	<build>
