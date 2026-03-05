@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -59,5 +60,10 @@ public class RestaurantController {
             return new ResponseEntity<>("Restaurant not found", HttpStatus.NOT_FOUND);
         }
         return new ResponseEntity<>("Restaurant deleted successfully", HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/orders/states")
+    public ResponseEntity<Map<String, String>> getConsumedOrderStates() {
+        return new ResponseEntity<>(restaurantService.getOrderStates(), HttpStatus.OK);
     }
 }
