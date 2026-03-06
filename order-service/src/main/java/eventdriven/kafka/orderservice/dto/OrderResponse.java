@@ -1,9 +1,12 @@
 package eventdriven.kafka.orderservice.dto;
 
 import eventdriven.kafka.orderservice.model.Order;
+import eventdriven.kafka.orderservice.model.OrderItem;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Data
 @NoArgsConstructor
@@ -15,6 +18,7 @@ public class OrderResponse {
     private double totalPrice;
     private String status;
     private String createdAt;
+    private List<OrderItem> items;
 
     public static OrderResponse fromOrder(Order order) {
         return new OrderResponse(
@@ -23,6 +27,7 @@ public class OrderResponse {
                 order.getRestaurantId(),
                 order.getTotalPrice(),
                 order.getStatus(),
-                order.getCreatedAt().toString());
+                order.getCreatedAt().toString(),
+                order.getItems());
     }
 }

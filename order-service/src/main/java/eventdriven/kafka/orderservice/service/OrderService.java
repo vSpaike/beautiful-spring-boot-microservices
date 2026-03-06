@@ -21,7 +21,7 @@ public class OrderService {
     }
 
     public Order createOrder(CreateOrderRequest request) {
-        String orderId = "ORD-" + orderCounter++;
+        String orderId = "LAM-ORD-" + orderCounter++;
 
         // Calculate total price
         double totalPrice = request.getItems().stream()
