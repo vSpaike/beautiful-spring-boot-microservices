@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>eventdriven.kafka</groupId>
-	<artifactId>email-service</artifactId>
+	<artifactId>kitchen-service</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>email-service</name>
-	<description>Email Service</description>
+	<name>kitchen-service</name>
+	<description>Kitchen Service</description>
 	<properties>
 		<java.version>17</java.version>
 	</properties>
@@ -41,6 +41,7 @@
 			<artifactId>base-domains</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+
 	</dependencies>
 
 	<build>

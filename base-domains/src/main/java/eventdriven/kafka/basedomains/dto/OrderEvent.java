@@ -12,4 +12,8 @@ public class OrderEvent {
     private String message;
     private String status;
     private Order order;
+
+    public Order getOrder() {
+        return order;
+    }
 }
