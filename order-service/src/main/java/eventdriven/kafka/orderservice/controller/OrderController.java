@@ -8,6 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+
+import java.util.List;
+
 import java.util.UUID;
 
 @RestController
@@ -15,6 +18,7 @@ import java.util.UUID;
 public class OrderController {
 
     private OrderProducer orderProducer;
+    private static final List<String> Burgers = List.of("Cheese Burger", "Veggie Burger", "Chicken Burger");
 
     public OrderController(OrderProducer orderProducer) {
         this.orderProducer = orderProducer;
@@ -22,6 +26,10 @@ public class OrderController {
 
     @PostMapping("/orders")
     public String placeOrder(@RequestBody Order order){
+
+        if (this.Burgers.stream().noneMatch(b -> b.equals(order.getName()))) {
+            return "Burger not found in the menu";
+        }
 
         order.setOrderId(UUID.randomUUID().toString());
 
