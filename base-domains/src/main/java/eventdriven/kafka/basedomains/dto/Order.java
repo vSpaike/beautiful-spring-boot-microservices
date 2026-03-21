@@ -13,13 +13,4 @@ public class Order {
     private String name;
     private int qty;
     private double price;
-
-    public String toString() {
-        return "Order{" +
-                "orderId='" + orderId + '\'' +
-                ", name='" + name + '\'' +
-                ", qty=" + qty +
-                ", price=" + price +
-                '}';
-    }
 }
