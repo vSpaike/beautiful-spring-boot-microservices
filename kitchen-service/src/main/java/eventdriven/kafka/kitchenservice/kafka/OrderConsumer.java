@@ -24,13 +24,18 @@ public class OrderConsumer {
             ,groupId = "${spring.kafka.consumer.group-id}"
     )
     public void consume(OrderEvent event){
+        // Log the received order event
         LOGGER.info(String.format("Order event received in kitchen service => %s", event.toString()));
+        LOGGER.info(String.format("Processing order with ID: %s", event.getOrder().getOrderId()));
 
+        // Simulate order processing logic
         Order order = event.getOrder();
         OrderEvent orderEvent = new OrderEvent();
         orderEvent.setOrder(order);
         orderEvent.setMessage("order is being prepared in the kitchen");
         orderEvent.setStatus("IN_PREPARATION");
+
+        // Send the updated order event back to Kafka
         producer.sendMessage(orderEvent);
     }
 
