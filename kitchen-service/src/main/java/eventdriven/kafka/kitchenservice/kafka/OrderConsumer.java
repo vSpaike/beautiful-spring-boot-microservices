@@ -8,13 +8,16 @@ import org.springframework.stereotype.Service;
 import eventdriven.kafka.basedomains.dto.Order;
 import eventdriven.kafka.basedomains.dto.OrderEvent;
 
-
 @Service
 public class OrderConsumer {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(OrderConsumer.class);
 
-    private static final OrderProducer producer = new OrderProducer();
+    private OrderProducer producer;
+
+    public OrderConsumer(OrderProducer producer) {
+        this.producer = producer;
+    }
 
     @KafkaListener(
             topics = "${spring.kafka.topic.name1}"

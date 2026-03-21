@@ -19,9 +19,9 @@ public class OrderProducer {
 
     private KafkaTemplate<String, OrderEvent> kafkaTemplate;
 
-    public OrderProducer() {
-        this.topic = new NewTopic("stock_topics", 1, (short) 1);
-        this.kafkaTemplate = new KafkaTemplate<>(null);
+    public OrderProducer(NewTopic topic, KafkaTemplate<String, OrderEvent> kafkaTemplate) {
+        this.topic = topic;
+        this.kafkaTemplate = kafkaTemplate;
     }
 
     public void sendMessage(OrderEvent event) {
