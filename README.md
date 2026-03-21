@@ -2,12 +2,14 @@
 
 ## Strucure du bordel
 
+```
 Order-service <-------> Kitchen-service <-------> Stock-service
                   |                         |
                   |                         |
  envoie une commande sur order_topics       |
                                             |
                             envoie une commande sur stock_topic
+```
 
 ## Services
 
