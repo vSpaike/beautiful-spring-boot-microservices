@@ -61,6 +61,7 @@ Order-service <-------> Kitchen-service <-------> Stock-service
 ## Lancer le projet
 
 1. Lancer Kafka avec docker compose sur le port 9092
-2. Tout compiler avec `mvn clean install` dans le dossier parent
-3. Lancer les services dans l'ordre : stock-service, kitchen-service, order-service avec `mvn spring-boot:run` dans chaque dossier respectif
-4. Envoyer une requête HTTP pour créer une commande
+2. Lancer la base de données avec docker compose sur le port 3306
+3. Tout compiler avec `mvn clean install` dans le dossier parent
+4. Lancer les services dans l'ordre : stock-service, kitchen-service, order-service avec `mvn spring-boot:run` dans chaque dossier respectif
+5. Envoyer une requête HTTP pour créer une commande
