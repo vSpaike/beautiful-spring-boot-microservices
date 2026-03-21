@@ -43,11 +43,17 @@
 		</dependency>
 
 		<dependency>
+			<groupId>com.mysql</groupId>
+			<artifactId>mysql-connector-j</artifactId>
+		</dependency>
+
+		<dependency>
 			<groupId>eventdriven.kafka</groupId>
 			<artifactId>base-domains</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
+
 
 	<build>
 		<plugins>
