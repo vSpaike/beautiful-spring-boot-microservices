@@ -2,6 +2,7 @@ package eventdriven.kafka.orderservice.controller;
 
 import eventdriven.kafka.basedomains.dto.Order;
 import eventdriven.kafka.basedomains.dto.OrderEvent;
+import eventdriven.kafka.basedomains.dto.Product;
 import eventdriven.kafka.orderservice.kafka.OrderProducer;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,7 +19,12 @@ import java.util.UUID;
 public class OrderController {
 
     private OrderProducer orderProducer;
-    private static final List<String> Burgers = List.of("Cheese Burger", "Veggie Burger", "Chicken Burger");
+    private static final List<Product> Burgers = List.of(
+            new Product("Classic Burger", 5.99),
+            new Product("Cheese Burger", 6.99),
+            new Product("Bacon Burger", 7.99),
+            new Product("Veggie Burger", 6.49)
+    );
 
     public OrderController(OrderProducer orderProducer) {
         this.orderProducer = orderProducer;
