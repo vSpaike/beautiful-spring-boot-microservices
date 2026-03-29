@@ -1,4 +1,4 @@
-package eventdriven.kafka.kitchenservice.kafka;
+package eventdriven.kafka.orchestratorservice.kafka;
 
 import eventdriven.kafka.basedomains.dto.OrderEvent;
 import org.apache.kafka.clients.admin.NewTopic;
